@@ -68,7 +68,8 @@ namespace DogeWalletBot.Dialogs
 
         private Task GetQRCodeDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
         {
-            throw new NotImplementedException();
+            context.Wait(MessageReceivedAsync);
+            await Task.CompletedTask;
         }
 
         private async Task GetSentDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
