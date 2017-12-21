@@ -65,7 +65,7 @@ namespace DogeWalletBot.Dialogs
             {
                 ContentUrl = qrCodeLink,
                 ContentType = "image/png",
-                Name = "DogeWalletAddressQRCode.png"
+                Name = "Doge wallet address"
             });
             await context.PostAsync(qrMsg);
         }
