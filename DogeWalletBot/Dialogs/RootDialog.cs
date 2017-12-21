@@ -55,6 +55,13 @@ namespace DogeWalletBot.Dialogs
                 forvardedMsg.Text = activity.Text;
                 await context.Forward(new GetQRCodeDialog(), GetQRCodeDialogResumeAfterAsync, forvardedMsg, CancellationToken.None);
             }
+            else if (activity.Text.Contains("/report")) // if "/report [address]" command
+            {
+                //    var forvardedMsg = context.MakeMessage();
+                //    forvardedMsg.Text = activity.Text;
+                //    await context.Forward(new GetQRCodeDialog(), GetQRCodeDialogResumeAfterAsync, forvardedMsg, CancellationToken.None);
+                await context.PostAsync("NotImplemented yet...");
+            }
             else
             {
                 if (activity.Text == "/start") //start conversation
