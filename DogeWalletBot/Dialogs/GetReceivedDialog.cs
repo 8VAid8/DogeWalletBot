@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DogeWalletBot.Dialogs
 {
     [Serializable]
-    internal class GetBalanceDialog : IDialog<object>
+    internal class GetReceivedDialog : IDialog<object>
     {
         private int attempts = 3;
         public string ExceptionMessage { get; set; } = "There was some errors, enter valid DogeCoin wallet address, please!";
@@ -25,9 +25,9 @@ namespace DogeWalletBot.Dialogs
             string address = "";
             if ((message.Text != null) && (message.Text.Trim().Length > 0))
             {
-                if (message.Text.Contains(" ")) //if "/balance [address]" command
+                if (message.Text.Contains(" ")) //if "/received [address]" command
                 {
-                    address = message.Text.Replace("/balance ", "").Trim();
+                    address = message.Text.Replace("/received ", "").Trim();
                 }
                 else
                     context.UserData.TryGetValue("wallet", out address);
@@ -35,10 +35,10 @@ namespace DogeWalletBot.Dialogs
                 if (!string.IsNullOrEmpty(address))
                     try
                     {
-                        var balance = await Client.GetBalanceAsync(address);
-                        if (balance.Success == 1)
+                        var received = await Client.GetReceivedAsync(address);
+                        if (received.Success == 1)
                         {
-                            await context.PostAsync($"Balance of {address} address is: {balance.Balance} DogeCoin's.");
+                            await context.PostAsync($"Value of received DogeCoin's by {address} address is: {received.Received}.");
                             context.Done(0);
                         }
                         else
@@ -51,7 +51,7 @@ namespace DogeWalletBot.Dialogs
                     }
                 else
                 {
-                    await context.PostAsync($"Set wallet addres first (/setwallet [addrss]) or call /balance [address] command!");
+                    await context.PostAsync($"Set wallet addres first (/setwallet [addrss]) or call /received [address] command!");
                     context.Fail(new Exception("DogeCoin wallet address wasn't saved!"));
                 }
             }

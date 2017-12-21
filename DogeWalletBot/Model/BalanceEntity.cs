@@ -8,7 +8,7 @@ namespace DogeWalletBot.Model
     [Serializable]
     public class BalanceEntity
     {
-        public string balance { get; set; }
-        public int success { get; set; }
+        public string Balance { get; set; }
+        public int Success { get; set; }
     }
 }

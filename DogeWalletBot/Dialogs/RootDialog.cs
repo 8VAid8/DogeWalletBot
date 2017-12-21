@@ -31,15 +31,17 @@ namespace DogeWalletBot.Dialogs
                 forvardedMsg.Text = activity.Text;
                 await context.Forward(new SetWalletDialog(), SetWalletDialogResumeAfter, forvardedMsg, CancellationToken.None);
             }
-            //else if (activity.Text == "/balance") // if "/balance" command
-            //{
-            //    context.Call(new GetBalanceDialog(), GetBalanceDialogResumeAfter);
-            //}
             else if (activity.Text.Contains("/balance")) // if "/balance [address]" command
             {
                 var forvardedMsg = context.MakeMessage();
                 forvardedMsg.Text = activity.Text;
                 await context.Forward(new GetBalanceDialog(), GetBalanceDialogResumeAfter, forvardedMsg, CancellationToken.None);
+            }
+            else if (activity.Text.Contains("/received")) // if "/received [address]" command
+            {
+                var forvardedMsg = context.MakeMessage();
+                forvardedMsg.Text = activity.Text;
+                await context.Forward(new GetReceivedDialog(), GetReceivedDialogResumeAfter, forvardedMsg, CancellationToken.None);
             }
 
             else
@@ -51,6 +53,12 @@ namespace DogeWalletBot.Dialogs
 
                 context.Wait(MessageReceivedAsync);
             } 
+        }
+
+        private async Task GetReceivedDialogResumeAfter(IDialogContext context, IAwaitable<object> result)
+        {
+            context.Wait(MessageReceivedAsync);
+            await Task.CompletedTask;
         }
 
         private async Task GetBalanceDialogResumeAfter(IDialogContext context, IAwaitable<object> result)
@@ -70,7 +78,7 @@ namespace DogeWalletBot.Dialogs
 
         private void ShowHelp(IDialogContext context)
         {
-            string helpStartText = "Attach your DogeCoin wallet (/setwallet /*address*/) and you will be able perform this commands:\r\n";
+            string helpStartText = "Attach your DogeCoin wallet (/setwallet [address]) and you will be able perform this commands:\r\n";
             string commands = "/balance - Returns DogeCoin wallet balance\r\n";
             context.PostAsync(helpStartText + commands);
         }

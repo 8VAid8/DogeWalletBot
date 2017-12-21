@@ -36,7 +36,7 @@ namespace DogeWalletBot.Dialogs
                 try
                 {
                     var balance = await Client.GetBalanceAsync(address);
-                    if (balance.success == 1)
+                    if (balance.Success == 1)
                     {
                         context.UserData.SetValue("wallet", address);
                         context.Done(address);
