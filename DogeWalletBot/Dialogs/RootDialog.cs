@@ -66,7 +66,7 @@ namespace DogeWalletBot.Dialogs
             else
             {
                 if (activity.Text == "/start") //start conversation
-                    GreetUser(context, result);
+                    await GreetUser(context, result);
                 else if (activity.Text == "/help") //show help
                     ShowHelp(context);
 
@@ -107,7 +107,7 @@ namespace DogeWalletBot.Dialogs
             await Task.CompletedTask;
         }
 
-        private void ShowHelp(IDialogContext context)
+        private async Task ShowHelp(IDialogContext context)
         {
             string helpStartText = "Attach your DogeCoin wallet (/setwallet [address]) and you will be able perform this commands:\n\n";
             string commands = "balance  - Returns DogeCoin wallet balance from specified or default address\n\n" +
@@ -115,13 +115,13 @@ namespace DogeWalletBot.Dialogs
                 "/sent - Returns the sent from specified or default address DogeCoins\n\n" +
                 "/qrcode - Returns the qrcode of specified or default wallet address\n\n" +
                 "/report - Returns specified or default wallet address report";
-            context.PostAsync(helpStartText + commands);
+            await context.PostAsync(helpStartText + commands);
         }
 
-        private void GreetUser(IDialogContext context, IAwaitable<object> result)
+        private async Task GreetUser(IDialogContext context, IAwaitable<object> result)
         {
-            context.PostAsync("Welcome, Young Shibe!\r\n");
-            ShowHelp(context);
+            await context.PostAsync("Welcome, Young Shibe!\r\n");
+            await ShowHelp(context);
         }
     }
 }
