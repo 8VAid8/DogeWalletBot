@@ -61,6 +61,7 @@ namespace DogeWalletBot.Dialogs
                 //    forvardedMsg.Text = activity.Text;
                 //    await context.Forward(new GetQRCodeDialog(), GetQRCodeDialogResumeAfterAsync, forvardedMsg, CancellationToken.None);
                 await context.PostAsync("NotImplemented yet...");
+                context.Wait(MessageReceivedAsync);
             }
             else
             {
