@@ -66,7 +66,7 @@ namespace DogeWalletBot.Dialogs
             } 
         }
 
-        private Task GetQRCodeDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task GetQRCodeDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
         {
             context.Wait(MessageReceivedAsync);
             await Task.CompletedTask;

@@ -47,6 +47,19 @@ namespace Budget.Bot.DAL
             return entity;
         }
 
+        public static async Task<byte[]> GetByteArrayAsync(string path)
+        {
+            InitClient();
+            byte[] byteArray;
+            HttpResponseMessage response = await client.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                byteArray = await response.Content.ReadAsByteArrayAsync();
+                return byteArray;
+            }
+            throw new Exception("Can't receive qr code!");
+        }
+
         public static async Task<BalanceEntity> GetBalanceAsync(string address)
         {
             return await GetAsync<BalanceEntity>($"address/balance/{address}");
@@ -62,9 +75,14 @@ namespace Budget.Bot.DAL
             return await GetAsync<SentEntity>($"address/sent/{address}");
         }
 
-        public static async Task<ErrorEntity> GetQRCodeErrorAsync(string address)
+        public static async Task<string> GetQRCode(string address)
         {
-            return await GetAsync<ErrorEntity>($"address/qrcode/{address}");
+            string qrPath = $"address/qrcode/{address}";
+            var img = await GetByteArrayAsync(qrPath);
+            if (img != null)
+                return WebApiHost + qrPath;
+            else
+                return null;
         }
     }
 }

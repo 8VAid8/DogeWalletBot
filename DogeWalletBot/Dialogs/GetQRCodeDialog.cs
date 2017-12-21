@@ -35,11 +35,10 @@ namespace DogeWalletBot.Dialogs
                 if (!string.IsNullOrEmpty(address))
                     try
                     {
-                        var received = await Client.GetQRCodeErrorAsync(address);
-                        if (received.Success != 0)
+                        var qrCodeLink = await Client.GetQRCode(address);
+                        if (qrCodeLink != null)
                         {
-                            var qrCodeLink = Client.WebApiHost + $"address/qrcode/{address}";
-                            await context.PostAsync($"QR code of {address} address is: {qrCodeLink}.");
+                            await SendQrCode(context, address, qrCodeLink);
                             context.Done(0);
                         }
                         else
@@ -58,6 +57,18 @@ namespace DogeWalletBot.Dialogs
             }
         }
 
+        private async Task SendQrCode(IDialogContext context, string address, string qrCodeLink)
+        {
+            var qrMsg = context.MakeMessage();
+            qrMsg.Text = $"QR code of {address} address:";
+            qrMsg.Attachments.Add(new Attachment()
+            {
+                ContentUrl = qrCodeLink,
+                ContentType = "image/png",
+                Name = "DogeWalletAddressQRCode.png"
+            });
+            await context.PostAsync(qrMsg);
+        }
         private async Task ProcessErrors(IDialogContext context)
         {
             --attempts;
