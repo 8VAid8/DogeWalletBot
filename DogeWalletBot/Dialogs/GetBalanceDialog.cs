@@ -46,7 +46,7 @@ namespace DogeWalletBot.Dialogs
                     }
                     catch (Exception ex)
                     {
-                        await context.PostAsync(ex.Message);
+                        //await context.PostAsync(ex.Message);
                         await ProcessErrors(context);
                     }
                 else
