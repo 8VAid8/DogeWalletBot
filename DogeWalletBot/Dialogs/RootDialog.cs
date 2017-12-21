@@ -120,8 +120,20 @@ namespace DogeWalletBot.Dialogs
 
         private async Task GreetUser(IDialogContext context, IAwaitable<object> result)
         {
-            await context.PostAsync("Welcome, Young Shibe!\r\n");
+            await SendGreetMessage(context);
             await ShowHelp(context);
+        }
+
+        private async Task SendGreetMessage(IDialogContext context)
+        {
+            var qrMsg = context.MakeMessage();
+            qrMsg.Text = "Welcome, Young Shibe!\r\n";
+            qrMsg.Attachments.Add(new Attachment()
+            {
+                ContentUrl = "http://www.stickpng.com/assets/images/5845e608fb0b0755fa99d7e7.png",
+                ContentType = "image/png"
+            });
+            await context.PostAsync(qrMsg);
         }
     }
 }
