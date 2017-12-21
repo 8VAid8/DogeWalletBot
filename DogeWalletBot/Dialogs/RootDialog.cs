@@ -131,7 +131,8 @@ namespace DogeWalletBot.Dialogs
             qrMsg.Attachments.Add(new Attachment()
             {
                 ContentUrl = "http://www.stickpng.com/assets/images/5845e608fb0b0755fa99d7e7.png",
-                ContentType = "image/png"
+                ContentType = "image/png",
+				Name = ""
             });
             await context.PostAsync(qrMsg);
         }
