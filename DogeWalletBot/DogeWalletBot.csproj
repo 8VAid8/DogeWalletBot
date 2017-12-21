@@ -125,7 +125,6 @@
     </Compile>
     <Compile Include="Model\BalanceEntity.cs" />
     <Compile Include="Model\ErrorEntity.cs" />
-    <Compile Include="Model\ImageEntity.cs" />
     <Compile Include="Model\ReceivedEntity.cs" />
     <Compile Include="Model\SentEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
