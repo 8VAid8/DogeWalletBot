@@ -110,7 +110,7 @@ namespace DogeWalletBot.Dialogs
         private async Task ShowHelp(IDialogContext context)
         {
             string helpStartText = "Attach your DogeCoin wallet (/setwallet [address]) and you will be able perform this commands:\n\n";
-            string commands = "balance  - Returns DogeCoin wallet balance from specified or default address\n\n" +
+            string commands = "/balance  - Returns DogeCoin wallet balance from specified or default address\n\n" +
                 "/received - Returns the received DogeCoins by specified or default address\n\n" +
                 "/sent - Returns the sent from specified or default address DogeCoins\n\n" +
                 "/qrcode - Returns the qrcode of specified or default wallet address\n\n" +
