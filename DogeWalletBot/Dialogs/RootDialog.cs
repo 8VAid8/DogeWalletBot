@@ -68,7 +68,7 @@ namespace DogeWalletBot.Dialogs
                 if (activity.Text == "/start") //start conversation
                     await GreetUser(context, result);
                 else if (activity.Text == "/help") //show help
-                    ShowHelp(context);
+                    await ShowHelp(context);
 
                 context.Wait(MessageReceivedAsync);
             } 
