@@ -43,7 +43,12 @@ namespace DogeWalletBot.Dialogs
                 forvardedMsg.Text = activity.Text;
                 await context.Forward(new GetReceivedDialog(), GetReceivedDialogResumeAfter, forvardedMsg, CancellationToken.None);
             }
-
+            else if (activity.Text.Contains("/sent")) // if "/sent [address]" command
+            {
+                var forvardedMsg = context.MakeMessage();
+                forvardedMsg.Text = activity.Text;
+                await context.Forward(new GetSentDialog(), GetSentDialogResumeAfterAsync, forvardedMsg, CancellationToken.None);
+            }
             else
             {
                 if (activity.Text == "/start") //start conversation
@@ -53,6 +58,12 @@ namespace DogeWalletBot.Dialogs
 
                 context.Wait(MessageReceivedAsync);
             } 
+        }
+
+        private async Task GetSentDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
+        {
+            context.Wait(MessageReceivedAsync);
+            await Task.CompletedTask;
         }
 
         private async Task GetReceivedDialogResumeAfter(IDialogContext context, IAwaitable<object> result)

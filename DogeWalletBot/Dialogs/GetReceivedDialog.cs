@@ -11,7 +11,7 @@ namespace DogeWalletBot.Dialogs
     {
         private int attempts = 3;
         public string ExceptionMessage { get; set; } = "There was some errors, enter valid DogeCoin wallet address, please!";
-        private string ExceptionFinalMessage { get; set; } = $"Wow, we can't save your address. May be it is wrong, check it, please and try again later.";
+        private string ExceptionFinalMessage { get; set; } = $"Wow, we can't get received DogeCoins. May be address is wrong, check it, please and try again later.";
 
         public async Task StartAsync(IDialogContext context)
         {

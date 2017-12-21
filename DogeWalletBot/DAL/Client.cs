@@ -56,5 +56,10 @@ namespace Budget.Bot.DAL
         {
             return await GetAsync<ReceivedEntity>($"address/received/{address}");
         }
+
+        public static async Task<SentEntity> GetSentAsync(string address)
+        {
+            return await GetAsync<SentEntity>($"address/sent/{address}");
+        }
     }
 }

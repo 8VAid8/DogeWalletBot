@@ -116,6 +116,7 @@
     <Compile Include="DAL\Client.cs" />
     <Compile Include="Dialogs\GetBalanceDialog.cs" />
     <Compile Include="Dialogs\GetReceivedDialog.cs" />
+    <Compile Include="Dialogs\GetSentDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Dialogs\SetWalletDialog.cs" />
     <Compile Include="Global.asax.cs">
@@ -123,6 +124,7 @@
     </Compile>
     <Compile Include="Model\BalanceEntity.cs" />
     <Compile Include="Model\ReceivedEntity.cs" />
+    <Compile Include="Model\SentEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
