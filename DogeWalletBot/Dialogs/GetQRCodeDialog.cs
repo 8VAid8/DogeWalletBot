@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace DogeWalletBot.Dialogs
 {
     [Serializable]
-    internal class GetSentDialog : IDialog<object>
+    internal class GetQRCodeDialog : IDialog<object>
     {
         private int attempts = 3;
         public string ExceptionMessage { get; set; } = "There was some errors, enter valid DogeCoin wallet address, please!";
-        private string ExceptionFinalMessage { get; set; } = $"Wow, we can't get sent DogeCoins. May be address is wrong, check it, please and try again later.";
+        private string ExceptionFinalMessage { get; set; } = $"Wow, we can't get the qr code of specified address. May be address is wrong, check it, please and try again later.";
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -25,9 +25,9 @@ namespace DogeWalletBot.Dialogs
             string address = "";
             if ((message.Text != null) && (message.Text.Trim().Length > 0))
             {
-                if (message.Text.Contains(" ")) //if "/sent [address]" command
+                if (message.Text.Contains(" ")) //if "/qrcode [address]" command
                 {
-                    address = message.Text.Replace("/sent ", "").Trim();
+                    address = message.Text.Replace("/qrcode ", "").Trim();
                 }
                 else
                     context.UserData.TryGetValue("wallet", out address);
@@ -35,10 +35,11 @@ namespace DogeWalletBot.Dialogs
                 if (!string.IsNullOrEmpty(address))
                     try
                     {
-                        var sent = await Client.GetSentAsync(address);
-                        if (sent.Success == 1)
+                        var received = await Client.GetQRCodeErrorAsync(address);
+                        if (received.Success != 0)
                         {
-                            await context.PostAsync($"Value of sent DogeCoin's from {address} address is: {sent.Sent}.");
+                            var qrCodeLink = Client.WebApiHost + $"address/qrcode/{address}";
+                            await context.PostAsync($"QR code of {address} address is: {qrCodeLink}.");
                             context.Done(0);
                         }
                         else
@@ -51,7 +52,7 @@ namespace DogeWalletBot.Dialogs
                     }
                 else
                 {
-                    await context.PostAsync($"Set wallet addres first (/setwallet [addrss]) or call /sent [address] command!");
+                    await context.PostAsync($"Set wallet addres first (/setwallet [addrss]) or call /qrcode [address] command!");
                     context.Fail(new Exception("DogeCoin wallet address wasn't saved!"));
                 }
             }

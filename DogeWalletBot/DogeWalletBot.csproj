@@ -115,6 +115,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="DAL\Client.cs" />
     <Compile Include="Dialogs\GetBalanceDialog.cs" />
+    <Compile Include="Dialogs\GetQRCodeDialog.cs" />
     <Compile Include="Dialogs\GetReceivedDialog.cs" />
     <Compile Include="Dialogs\GetSentDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
@@ -123,6 +124,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\BalanceEntity.cs" />
+    <Compile Include="Model\ErrorEntity.cs" />
+    <Compile Include="Model\ImageEntity.cs" />
     <Compile Include="Model\ReceivedEntity.cs" />
     <Compile Include="Model\SentEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

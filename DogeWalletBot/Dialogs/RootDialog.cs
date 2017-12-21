@@ -49,6 +49,12 @@ namespace DogeWalletBot.Dialogs
                 forvardedMsg.Text = activity.Text;
                 await context.Forward(new GetSentDialog(), GetSentDialogResumeAfterAsync, forvardedMsg, CancellationToken.None);
             }
+            else if (activity.Text.Contains("/qrcode")) // if "/qrcode [address]" command
+            {
+                var forvardedMsg = context.MakeMessage();
+                forvardedMsg.Text = activity.Text;
+                await context.Forward(new GetQRCodeDialog(), GetQRCodeDialogResumeAfterAsync, forvardedMsg, CancellationToken.None);
+            }
             else
             {
                 if (activity.Text == "/start") //start conversation
@@ -58,6 +64,11 @@ namespace DogeWalletBot.Dialogs
 
                 context.Wait(MessageReceivedAsync);
             } 
+        }
+
+        private Task GetQRCodeDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
+        {
+            throw new NotImplementedException();
         }
 
         private async Task GetSentDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)

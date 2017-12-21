@@ -20,15 +20,15 @@ namespace Budget.Bot.DAL
     public static class Client
     {
         public static HttpClient client; //don't create too much client instanses, one is enough
-        static string webApiHost = "http://dogechain.info/api/v1/";
+        public static string WebApiHost { get; } = "http://dogechain.info/api/v1/";
 
         public static void InitClient()
         {
-            if (client != null && !string.IsNullOrEmpty(webApiHost))
+            if (client != null && !string.IsNullOrEmpty(WebApiHost))
                 return;
             client = new HttpClient
             {
-                BaseAddress = new Uri(webApiHost)
+                BaseAddress = new Uri(WebApiHost)
             };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -60,6 +60,11 @@ namespace Budget.Bot.DAL
         public static async Task<SentEntity> GetSentAsync(string address)
         {
             return await GetAsync<SentEntity>($"address/sent/{address}");
+        }
+
+        public static async Task<ErrorEntity> GetQRCodeErrorAsync(string address)
+        {
+            return await GetAsync<ErrorEntity>($"address/qrcode/{address}");
         }
     }
 }
