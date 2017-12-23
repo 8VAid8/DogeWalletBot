@@ -143,7 +143,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="dogewalletbot.PublishSettings" />
-    <Content Include="App_Data\tReport.frx" />
     <Content Include="App_Data\TransactionsReport.frx" />
     <None Include="Properties\PublishProfiles\dogewalletbot - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
