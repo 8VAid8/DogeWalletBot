@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/22/2017 15:12:21" ReportInfo.Modified="12/23/2017 17:00:19" ReportInfo.CreatorVersion="1.0.0.0">
+  <Dictionary/>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9">
+      <TextObject Name="Text1" Width="718.2" Height="18.9" Text="Received Transactions" HorzAlign="Center" VertAlign="Center" Font="Comic Sans MS, 10pt" TextFill.Color="Gold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="21.19" Width="718.2" Height="18.9">
+      <TextObject Name="Text3" Width="538.65" Height="18.9" Text="Transaction ID" Font="Comic Sans MS, 10pt" TextFill.Color="Red"/>
+      <TextObject Name="Text5" Left="557.55" Width="160.65" Height="18.9" Text="Value, DOGE" Font="Comic Sans MS, 10pt" TextFill.Color="Red"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="42.37" Width="718.2" Height="18.9" CanGrow="true">
+      <TextObject Name="Text2" Width="538.65" Height="18.9" CanGrow="true" Text="[txs.Txid]" Font="Comic Sans MS, 10pt" TextFill.Color="BlueViolet"/>
+      <TextObject Name="Text4" Left="557.55" Width="160.65" Height="18.9" CanGrow="true" Text="[txs.Value]" Font="Comic Sans MS, 10pt" TextFill.Color="BlueViolet"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="63.56" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

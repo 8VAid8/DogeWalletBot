@@ -57,11 +57,11 @@ namespace DogeWalletBot.Dialogs
             }
             else if (activity.Text.Contains("/report")) // if "/report [address]" command
             {
-                //    var forvardedMsg = context.MakeMessage();
-                //    forvardedMsg.Text = activity.Text;
-                //    await context.Forward(new GetQRCodeDialog(), GetQRCodeDialogResumeAfterAsync, forvardedMsg, CancellationToken.None);
-                await context.PostAsync("NotImplemented yet...");
-                context.Wait(MessageReceivedAsync);
+                var forvardedMsg = context.MakeMessage();
+                forvardedMsg.Text = activity.Text;
+                await context.Forward(new ReportDialog(), ReportDialogResumeAfterAsync, forvardedMsg, CancellationToken.None);
+                //await context.PostAsync("NotImplemented yet...");
+                //context.Wait(MessageReceivedAsync);
             }
             else
             {
@@ -72,6 +72,12 @@ namespace DogeWalletBot.Dialogs
 
                 context.Wait(MessageReceivedAsync);
             } 
+        }
+
+        private async Task ReportDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
+        {
+            context.Wait(MessageReceivedAsync);
+            await Task.CompletedTask;
         }
 
         private async Task GetQRCodeDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
@@ -132,7 +138,7 @@ namespace DogeWalletBot.Dialogs
             {
                 ContentUrl = "http://www.stickpng.com/assets/images/5845e608fb0b0755fa99d7e7.png",
                 ContentType = "image/png",
-				Name = ""
+				Name = " "
             });
             await context.PostAsync(qrMsg);
         }

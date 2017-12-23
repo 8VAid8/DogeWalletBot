@@ -20,11 +20,16 @@ namespace Budget.Bot.DAL
     public static class Client
     {
         public static HttpClient client; //don't create too much client instanses, one is enough
-        public static string WebApiHost { get; } = "http://dogechain.info/api/v1/";
+        public static string WebApiHost { get; set; } = "http://dogechain.info/api/v1/";
 
-        public static void InitClient()
+        public static string WebApiHostDogechain { get; set; } = "http://dogechain.info/api/v1/";
+        public static string WebApiHostChainSo { get; set; } = "https://chain.so/api/v2/";
+
+        public static void InitClient() => InitClient(WebApiHost);
+        public static void InitClient(string webApiHost)
         {
-            if (client != null && !string.IsNullOrEmpty(WebApiHost))
+            WebApiHost = webApiHost;
+            if (client != null && !string.IsNullOrEmpty(WebApiHost) && client.BaseAddress.AbsoluteUri == WebApiHost)
                 return;
             client = new HttpClient
             {
@@ -83,6 +88,14 @@ namespace Budget.Bot.DAL
                 return WebApiHost + qrPath;
             else
                 return null;
+        }
+
+        public static async Task<List<ReceivedTransaction>> GetReceivedTransactions(string address)
+        {
+            WebApiHost = WebApiHostChainSo;
+            var trs = await GetAsync<ReceivedTransactionsResponse>($"get_tx_received/DOGE/{address}");
+            WebApiHost = WebApiHostDogechain;
+            return trs?.Data?.Txs;
         }
     }
 }
