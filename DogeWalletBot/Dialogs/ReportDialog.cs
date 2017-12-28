@@ -82,7 +82,7 @@ namespace DogeWalletBot.Dialogs
                     Filename = "report.pdf"
                 };
 
-                await client.SendDocumentAsync(chatId, new FileToSend("Received transactions.pdf", pdfReport), "First 100 received transactions.");
+                await client.SendDocumentAsync(chatId, new FileToSend("Received transactions.pdf", pdfReport), $"Received by {address} address transactions");
             }
         }
         private async Task ProcessErrors(IDialogContext context)

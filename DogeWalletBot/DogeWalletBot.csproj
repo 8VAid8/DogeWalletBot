@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="Model\BalanceEntity.cs" />
     <Compile Include="Model\ErrorEntity.cs" />
+    <Compile Include="Model\ExchangeRate.cs" />
     <Compile Include="Model\ReceivedEntity.cs" />
     <Compile Include="Model\ReceivedTransaction.cs" />
     <Compile Include="Model\SentEntity.cs" />

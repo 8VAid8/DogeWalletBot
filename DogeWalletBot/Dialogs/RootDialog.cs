@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Budget.Bot.DAL;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 
@@ -69,9 +70,20 @@ namespace DogeWalletBot.Dialogs
                     await GreetUser(context, result);
                 else if (activity.Text == "/help") //show help
                     await ShowHelp(context);
+                if (activity.Text == "/rate")
+                    await ShowExchangeRate(context);
 
                 context.Wait(MessageReceivedAsync);
             } 
+        }
+
+        private async Task ShowExchangeRate(IDialogContext context)
+        {
+            var rate = await Client.GetExchangeRate();
+            string rateMsg = $"Dogecoin exchange rates:\n\n" +
+                $"1 DOGE = {rate[0].Price_usd} USD, \n\n" +
+                $"1 DOGE = {rate[0].Price_btc} BTC.";
+            await context.PostAsync(rateMsg);
         }
 
         private async Task ReportDialogResumeAfterAsync(IDialogContext context, IAwaitable<object> result)
@@ -120,6 +132,7 @@ namespace DogeWalletBot.Dialogs
                 "/received [address] - Returns the received DogeCoins by specified or default address\n\n" +
                 "/sent [address] - Returns the sent from specified or default address DogeCoins\n\n" +
                 "/qrcode [address] - Returns the qrcode of specified or default wallet address\n\n" +
+                "/rate - Returns Dogecoin exchange rate (USD and BTC)\n\n" +
                 "/report [address] - Returns specified or default wallet address report";
             await context.PostAsync(helpStartText + commands);
         }

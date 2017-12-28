@@ -25,6 +25,8 @@ namespace Budget.Bot.DAL
         public static string WebApiHostDogechain { get; set; } = "http://dogechain.info/api/v1/";
         public static string WebApiHostChainSo { get; set; } = "https://chain.so/api/v2/";
 
+        public static string WebApiHostCoinmarket { get; set; } = "https://api.coinmarketcap.com/v1/";
+
         public static void InitClient() => InitClient(WebApiHost);
         public static void InitClient(string webApiHost)
         {
@@ -96,6 +98,14 @@ namespace Budget.Bot.DAL
             var trs = await GetAsync<ReceivedTransactionsResponse>($"get_tx_received/DOGE/{address}");
             WebApiHost = WebApiHostDogechain;
             return trs?.Data?.Txs;
+        }
+
+        public static async Task<List<ExchangeRate>> GetExchangeRate()
+        {
+            WebApiHost = WebApiHostCoinmarket;
+            var rate = await GetAsync<List<ExchangeRate>>($"ticker/dogecoin/");
+            WebApiHost = WebApiHostDogechain;
+            return rate;
         }
     }
 }
