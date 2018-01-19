@@ -71,7 +71,7 @@ namespace DogeWalletBot.Dialogs
 
             using (MemoryStream pdfReport = repr.GetReceivedTransactionsPdf(address, transactions))
             {
-                TelegramBotClient client = new TelegramBotClient("428428342:AAFKXcM_IAOCTpJB5-pz8YekJeAlNKHZi0g");
+                TelegramBotClient client = new TelegramBotClient("token");
                 var me = await client.GetMeAsync();
 
                 var chatId = context.Activity.From.Id;
